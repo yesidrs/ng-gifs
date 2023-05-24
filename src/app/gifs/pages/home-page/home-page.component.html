@@ -1,6 +1,6 @@
 <gifs-search-box class="w-full"></gifs-search-box>
-<main>
-  <div class="mt-5">
-    <gifs-card></gifs-card>
+<main class="mt-5 flex flex-wrap gap-5">
+  <div *ngFor="let gifSrc of gifs">
+    <gifs-card [imgSrc]="gifSrc"></gifs-card>
   </div>
 </main>
