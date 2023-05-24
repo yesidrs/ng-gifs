@@ -6,9 +6,11 @@ import { GifsService } from '../../services/gifs.service';
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent {
-  constructor(private gifsService: GifsService) {}
+  gifs: string[] = [
+    'https://media.giphy.com/media/3o7aCSPqXE5C6T8tBC/giphy.gif',
+    'https://media.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif',
+    'https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif',
+  ];
 
-  get gifs() {
-    return this.gifsService.gifs;
-  }
+  constructor(private gifsService: GifsService) {}
 }
