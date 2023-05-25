@@ -1,10 +1,11 @@
-<aside class="bg-dark h-screen w-60">
+<aside class="bg-dark h-screen w-40 md:w-60">
   <h3 class="font-bold text-red text-xl p-5">NgGifs</h3>
   <hr />
   <div class="p-5">
     <button
       class="bg-purple text-background font-semibold px-5 py-2 text-left rounded-md w-full mb-2"
       *ngFor="let tag of tagsHistory"
+      (click)="searchByTag(tag)"
     >
       {{ tag | titlecase }}
     </button>
