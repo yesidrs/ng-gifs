@@ -91,7 +91,7 @@ export class GifsService {
   }
 
   private limitTagsHistory(): void {
-    if (this._tagsHistory.length > 10) {
+    if (this._tagsHistory.length === 10) {
       this._tagsHistory.pop();
     }
   }
