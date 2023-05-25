@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { GifsService } from '../../services/gifs.service';
-import { cleanInput } from '../../helpers/gifs.helper';
+import { cleanInput } from '../../helpers/gifs.helpers';
 
 @Component({
   selector: 'gifs-search-box',

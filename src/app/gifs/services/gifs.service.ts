@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Gif, SearchResponse } from '../interfaces/gifs.interfaces';
-
-const API_KEY: string = 'VEvtJogPIK5tkjGaANU8E755Rdf8cxXQ';
-const URL: string = 'https://api.giphy.com/v1/gifs';
-const LIMIT: number = 15;
+import { environment } from '../environments/gifs.environments';
 
 @Injectable({
   providedIn: 'root',
@@ -30,13 +27,15 @@ export class GifsService {
 
     this._tagsHistory.unshift(tag);
 
+    const { apiKey, apiUrl, limit } = environment;
+
     const params = new HttpParams()
-      .set('api_key', API_KEY)
+      .set('api_key', apiKey)
       .set('q', tag)
-      .set('limit', LIMIT.toString());
+      .set('limit', limit);
 
     this.http
-      .get<SearchResponse>(`${URL}/search`, { params })
+      .get<SearchResponse>(`${apiUrl}/search`, { params })
       .subscribe((response) => {
         this._gifs = response.data;
       });
