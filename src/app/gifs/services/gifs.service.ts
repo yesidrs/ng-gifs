@@ -24,6 +24,7 @@ export class GifsService {
   }
 
   searchGifs(tag: string): void {
+    tag = tag.toLowerCase();
     this.duplicatedTags(tag);
     this.limitTagsHistory();
 
@@ -34,7 +35,7 @@ export class GifsService {
       .set('q', tag)
       .set('limit', LIMIT.toString());
 
-     this.http
+    this.http
       .get<SearchResponse>(`${URL}/search`, { params })
       .subscribe((response) => {
         this._gifs = response.data;
@@ -42,7 +43,6 @@ export class GifsService {
   }
 
   private duplicatedTags(tag: string): void {
-    tag = tag.toLowerCase();
     if (this._tagsHistory.includes(tag)) {
       this._tagsHistory = this._tagsHistory.filter((t) => t !== tag);
     }
