@@ -15,4 +15,8 @@ export class SidebarComponent {
   searchByTag(tag: string) {
     this.gifsService.searchGifs(tag);
   }
+
+  clean() {
+    this.gifsService.clean();
+  }
 }

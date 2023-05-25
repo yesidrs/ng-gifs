@@ -9,8 +9,11 @@ import { environment } from '../environments/gifs.environments';
 export class GifsService {
   private _tagsHistory: string[] = [];
   private _gifs: Gif[] = [];
+  private _trendingGifs: Gif[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.loadLocalStorage();
+  }
 
   get tagsHistory() {
     return [...this._tagsHistory];
@@ -20,13 +23,27 @@ export class GifsService {
     return [...this._gifs];
   }
 
+  get trendingGifs() {
+    return [...this._trendingGifs];
+  }
+
+  clean(): void {
+    this._tagsHistory = [];
+    this._gifs = [];
+    this.saveLocalStorage();
+  }
+
   searchGifs(tag: string): void {
+    // validations
     tag = tag.toLowerCase();
-    this.duplicatedTags(tag);
+    this.removeDuplicatedTags(tag);
     this.limitTagsHistory();
 
+    // add and save tag
     this._tagsHistory.unshift(tag);
+    this.saveLocalStorage();
 
+    // search gifs - api call
     const { apiKey, apiUrl, limit } = environment;
 
     const params = new HttpParams()
@@ -41,7 +58,33 @@ export class GifsService {
       });
   }
 
-  private duplicatedTags(tag: string): void {
+  public getTrendingGifs(): void {
+    const { apiKey, apiUrl, limit } = environment;
+
+    const params = new HttpParams().set('api_key', apiKey).set('limit', limit);
+
+    this.http
+      .get<SearchResponse>(`${apiUrl}/trending`, { params })
+      .subscribe((response) => {
+        this._trendingGifs = response.data;
+      });
+  }
+
+  // localStorage
+  private saveLocalStorage(): void {
+    localStorage.setItem('tagsHistory', JSON.stringify(this._tagsHistory));
+  }
+
+  private loadLocalStorage(): void {
+    const tagsHistory = localStorage.getItem('tagsHistory');
+
+    if (tagsHistory) {
+      this._tagsHistory = JSON.parse(tagsHistory);
+    }
+  }
+
+  // validations
+  private removeDuplicatedTags(tag: string): void {
     if (this._tagsHistory.includes(tag)) {
       this._tagsHistory = this._tagsHistory.filter((t) => t !== tag);
     }

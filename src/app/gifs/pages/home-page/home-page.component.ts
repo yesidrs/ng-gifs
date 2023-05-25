@@ -7,9 +7,15 @@ import { Gif } from '../../interfaces/gifs.interfaces';
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent {
-  constructor(private gifsService: GifsService) {}
+  constructor(private gifsService: GifsService) {
+    this.gifsService.getTrendingGifs();
+  }
 
   get gifs(): Gif[] {
     return this.gifsService.gifs;
+  }
+
+  get trendingGifs(): Gif[] {
+    return this.gifsService.trendingGifs;
   }
 }
