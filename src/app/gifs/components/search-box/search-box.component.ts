@@ -20,7 +20,7 @@ export class SearchBoxComponent {
       return;
     }
 
-    this.gifsService.addTag(newTag);
+    this.gifsService.searchTag(newTag);
 
     cleanInput(this.tagInput);
   }
