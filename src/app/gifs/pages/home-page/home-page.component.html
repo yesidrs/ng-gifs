@@ -1,4 +1,8 @@
-<gifs-search-box class="w-full"></gifs-search-box>
-<main class="mt-5 flex flex-wrap gap-5">
-  <gifs-card *ngFor="let gifSrc of gifs" [imgSrc]="gifSrc"></gifs-card>
+<gifs-search-box></gifs-search-box>
+<main class="mt-5 columns-3xs lg:columns-4">
+  <gifs-card
+    *ngFor="let gif of gifs"
+    [imgSrc]="gif.images.downsized_medium.url"
+    [title]="gif.title"
+  ></gifs-card>
 </main>
