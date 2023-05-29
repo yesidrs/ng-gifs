@@ -7,6 +7,10 @@ import { Component, Input } from '@angular/core';
 export class CardComponent {
   @Input()
   public imgSrc: string = '';
+
   @Input()
   public title: string = '';
+
+  @Input()
+  public alt: string = '';
 }

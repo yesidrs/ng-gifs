@@ -1,0 +1,17 @@
+<div class="flex justify-center">
+  <img
+    [src]="url"
+    [alt]="alt"
+    class="w-full rounded-md animate__animated animate__fadeIn"
+    (load)="onLoad()"
+    [ngStyle]="{ display: hasLoaded ? 'block' : 'none' }"
+  />
+  <img
+    *ngIf="!hasLoaded"
+    src="assets/loader.svg"
+    class="mt-5"
+    height="100"
+    width="100"
+    alt="loader"
+  />
+</div>

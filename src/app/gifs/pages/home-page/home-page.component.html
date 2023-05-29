@@ -2,19 +2,11 @@
 
 <h2 *ngIf="gifs.length === 0" class="my-10 text-6xl font-semibold text-green">
   Trending Gifs
-  <hr class="mt-5">
+  <hr class="mt-5" />
 </h2>
 <main class="mt-5 columns-3xs lg:columns-4">
-  <gifs-card
-    *ngFor="let gif of gifs"
-    [imgSrc]="gif.images.downsized_medium.url"
-    [title]="gif.title"
-  ></gifs-card>
+  <gifs-card-list [gifs]="gifs"></gifs-card-list>
   <ng-container *ngIf="gifs.length === 0">
-    <gifs-card
-      *ngFor="let gif of trendingGifs"
-      [imgSrc]="gif.images.downsized_medium.url"
-      [title]="gif.title"
-    ></gifs-card>
+    <gifs-card-list [gifs]="trendingGifs"></gifs-card-list>
   </ng-container>
 </main>
