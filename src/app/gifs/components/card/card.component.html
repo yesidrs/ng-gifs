@@ -1,4 +1,5 @@
 <div class="h-auto w-full bg-dark rounded-md mb-5 inline-block">
-  <img [src]="imgSrc" class="w-full rounded-md" alt="gif.title" />
-  <h3 class="p-5 font-mono text-center text-sm">{{ title }}</h3>
+  <!-- <img [src]="imgSrc" class="w-full rounded-md" alt="gif.title" /> -->
+  <shared-lazy-image [url]="imgSrc" [alt]="alt"></shared-lazy-image>
+  <h3 class="p-5 font-mono text-center text-sm">{{ title || 'No title founded' }}</h3>
 </div>

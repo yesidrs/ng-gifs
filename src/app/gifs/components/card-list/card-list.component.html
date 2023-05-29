@@ -2,4 +2,5 @@
   *ngFor="let gif of gifs"
   [imgSrc]="gif.images.downsized_medium.url"
   [title]="gif.title"
+  [alt]="gif.title || 'No title'"
 ></gifs-card>
