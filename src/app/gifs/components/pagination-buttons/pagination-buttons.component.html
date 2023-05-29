@@ -1,0 +1,19 @@
+<div class="mt-5" *ngIf="gifs.length === 0; else searchButtons">
+  <shared-button
+    class="mr-4"
+    [text]="'prev'"
+    (click)="(previousPageTrend)"
+  ></shared-button>
+  <shared-button [text]="'next'" (click)="(nextPageTrend)"></shared-button>
+</div>
+
+<ng-template #searchButtons>
+  <div class="mt-5">
+    <shared-button
+      class="mr-4"
+      [text]="'prev'"
+      (click)="(previousPageSearch)"
+    ></shared-button>
+    <shared-button [text]="'next'" (click)="(nextPageSearch)"></shared-button>
+  </div>
+</ng-template>

@@ -20,6 +20,7 @@ export class SearchBoxComponent {
       return;
     }
 
+    this.gifsService.resetOffsetByTag(newTag);
     this.gifsService.searchGifs(newTag);
 
     cleanInput(this.tagInput);

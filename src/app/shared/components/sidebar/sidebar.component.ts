@@ -13,6 +13,7 @@ export class SidebarComponent {
   }
 
   public searchByTag(tag: string) {
+    this.gifsService.resetOffset();
     this.gifsService.searchGifs(tag);
   }
 

@@ -10,6 +10,9 @@ export class GifsService {
   private _tagsHistory: string[] = [];
   private _gifs: Gif[] = [];
   private _trendingGifs: Gif[] = [];
+  private _offsetSearch: number = 0;
+  private _offsetTrending: number = 0;
+  private _gifsPerPage: number = 15;
 
   constructor(private http: HttpClient) {
     this.loadLocalStorage();
@@ -31,6 +34,9 @@ export class GifsService {
     this._tagsHistory = [];
     this._gifs = [];
     this.saveLocalStorage();
+    this._offsetSearch = 0;
+    this._offsetTrending = 0;
+    this.getTrendingGifs();
   }
 
   searchGifs(tag: string): void {
@@ -49,7 +55,8 @@ export class GifsService {
     const params = new HttpParams()
       .set('api_key', apiKey)
       .set('q', tag)
-      .set('limit', limit);
+      .set('limit', limit)
+      .set('offset', this._offsetSearch.toString());
 
     this.http
       .get<SearchResponse>(`${apiUrl}/search`, { params })
@@ -58,16 +65,51 @@ export class GifsService {
       });
   }
 
-  public getTrendingGifs(): void {
+  getTrendingGifs(): void {
     const { apiKey, apiUrl, limit } = environment;
 
-    const params = new HttpParams().set('api_key', apiKey).set('limit', limit);
+    const params = new HttpParams()
+      .set('api_key', apiKey)
+      .set('limit', limit)
+      .set('offset', this._offsetTrending.toString());
 
     this.http
       .get<SearchResponse>(`${apiUrl}/trending`, { params })
       .subscribe((response) => {
         this._trendingGifs = response.data;
       });
+  }
+
+  resetOffsetByTag(tag: string): void {
+    if (this._tagsHistory[0] !== tag) this._offsetSearch = 0;
+  }
+
+  resetOffset(): void {
+    this._offsetSearch = 0;
+  }
+
+  nextPageSearch(): void {
+    this._offsetSearch += this._gifsPerPage;
+    this.searchGifs(this._tagsHistory[0]);
+  }
+
+  previousPageSearch(): void {
+    if (this._offsetSearch >= this._gifsPerPage) {
+      this._offsetSearch -= this._gifsPerPage;
+      this.searchGifs(this._tagsHistory[0]);
+    }
+  }
+
+  nextPageTrend(): void {
+    this._offsetTrending += this._gifsPerPage;
+    this.getTrendingGifs();
+  }
+
+  previousPageTrend(): void {
+    if (this._offsetTrending >= this._gifsPerPage) {
+      this._offsetTrending -= this._gifsPerPage;
+      this.getTrendingGifs();
+    }
   }
 
   // localStorage
