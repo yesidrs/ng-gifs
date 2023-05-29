@@ -1,12 +1,9 @@
 <gifs-search-box></gifs-search-box>
 
-<h2 *ngIf="gifs.length === 0" class="my-10 text-6xl font-semibold text-green">
-  Trending Gifs
-  <hr class="mt-5" />
-</h2>
+<gif-title [gifs]="gifs"></gif-title>
+
+<gifs-pagination-buttons [gifs]="gifs"></gifs-pagination-buttons>
+
 <main class="mt-5 columns-3xs lg:columns-4">
-  <gifs-card-list [gifs]="gifs"></gifs-card-list>
-  <ng-container *ngIf="gifs.length === 0">
-    <gifs-card-list [gifs]="trendingGifs"></gifs-card-list>
-  </ng-container>
+  <gifs-switch [gifs]="gifs" [trendingGifs]="trendingGifs"></gifs-switch>
 </main>

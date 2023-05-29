@@ -1,0 +1,4 @@
+<gifs-card-list [gifs]="gifs"></gifs-card-list>
+<ng-container *ngIf="gifs.length === 0">
+  <gifs-card-list [gifs]="trendingGifs"></gifs-card-list>
+</ng-container>
