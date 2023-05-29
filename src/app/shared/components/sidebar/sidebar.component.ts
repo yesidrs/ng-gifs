@@ -12,11 +12,11 @@ export class SidebarComponent {
     return this.gifsService.tagsHistory;
   }
 
-  searchByTag(tag: string) {
+  public searchByTag(tag: string) {
     this.gifsService.searchGifs(tag);
   }
 
-  clean() {
+  public clean() {
     this.gifsService.clean();
   }
 }
