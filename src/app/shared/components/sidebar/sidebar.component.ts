@@ -6,18 +6,25 @@ import { GifsService } from 'src/app/gifs/services/gifs.service';
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
+  hasClicked: boolean = false;
+
   constructor(private gifsService: GifsService) {}
 
   get tagsHistory() {
     return this.gifsService.tagsHistory;
   }
 
-  public searchByTag(tag: string) {
+  searchByTag(tag: string) {
     this.gifsService.resetOffset();
     this.gifsService.searchGifs(tag);
   }
 
-  public clean() {
+  clean() {
     this.gifsService.clean();
+  }
+
+  handleClick() {
+    this.hasClicked = !this.hasClicked;
+    console.log(this.hasClicked);
   }
 }

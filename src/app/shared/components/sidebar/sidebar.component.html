@@ -1,7 +1,16 @@
-<aside class="bg-dark h-screen w-40 md:w-60">
-  <div class="flex justify-between items-center">
-    <h3 class="font-bold text-red text-xl p-5">NgGifs</h3>
-    <shared-button class="mr-5" [text]="'Clean'" (click)="clean()"></shared-button>
+<!-- desktop -->
+<aside
+  class="bg-dark h-screen w-40 md:w-60 hidden md:block animate__animated animate__slideInLeft animate__faster"
+>
+  <div
+    class="flex flex-col md:flex-row items-end justify-center md:justify-between md:items-center"
+  >
+    <h3 class="font-bold text-red text-xl p-4 md:p-5">NgGifs</h3>
+    <shared-button
+      class="mb-5 md:mb-0 mr-5"
+      [text]="'Clean'"
+      (click)="clean()"
+    ></shared-button>
   </div>
   <hr />
   <div class="p-5">
@@ -14,3 +23,53 @@
     </button>
   </div>
 </aside>
+
+<!-- mobile -->
+<aside
+  class="bg-dark h-screen w-40 md:w-60 md:block animate__animated animate__slideInLeft animate__faster"
+  *ngIf="hasClicked"
+>
+  <button
+    class="space-y-2 absolute top-12 left-3 animate-pulse"
+    (click)="handleClick()"
+  >
+    <span class="block w-4 h-0.5 bg-red"></span>
+    <span class="block w-6 h-0.5 bg-red"></span>
+    <span class="block w-8 h-0.5 bg-red"></span>
+  </button>
+  <div
+    class="flex flex-col md:flex-row items-end justify-center md:justify-between md:items-center"
+  >
+    <h3 class="font-bold text-red text-xl p-4 md:p-5">NgGifs</h3>
+    <shared-button
+      class="mb-5 md:mb-0 mr-5"
+      [text]="'Clean'"
+      (click)="clean()"
+    ></shared-button>
+  </div>
+  <hr />
+  <div class="p-5">
+    <button
+      class="bg-purple text-background font-semibold px-5 py-2 text-left rounded-md w-full mb-2 outline hover:outline-2 hover:outline-purple transition-all"
+      *ngFor="let tag of tagsHistory"
+      (click)="searchByTag(tag)"
+    >
+      {{ tag | titlecase }}
+    </button>
+  </div>
+</aside>
+
+<!-- burger menu -->
+<div
+  class="h-screen w-16 bg-dark relative md:hidden animate__animated animate__slideInLeft animate__faster"
+  *ngIf="!hasClicked"
+>
+  <button
+    class="space-y-2 absolute top-12 left-3 animate-pulse"
+    (click)="handleClick()"
+  >
+    <span class="block w-8 h-0.5 bg-red"></span>
+    <span class="block w-6 h-0.5 bg-red"></span>
+    <span class="block w-5 h-0.5 bg-red"></span>
+  </button>
+</div>
